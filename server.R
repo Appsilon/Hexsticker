@@ -53,12 +53,11 @@ output$myImage <- renderImage({
     
     file.remove(z)
   
-    # Return a list containing the filename
     list(src = outfile,
          contentType = 'image/png',
          width = 518,
          height = 600,
-         alt = "This is alternate text")
+         alt = "hexsticker")
   }, deleteFile = TRUE)
 
 

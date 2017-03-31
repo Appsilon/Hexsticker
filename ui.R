@@ -1,6 +1,7 @@
 library(shiny)
 library(shiny.semantic)
 library(colourpicker)
+library(magrittr)
 
 logos_img <- list(src = c("appsilon.png"),
        style = c("height: 50px; width: 141px; margin: -8px 10px -6px 0px"))

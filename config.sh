@@ -1,0 +1,1 @@
+_R_PROJECT_DOCKER_IMAGE_NAME=hexsticker:0.0.1

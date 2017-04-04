@@ -1,0 +1,23 @@
+FROM rocker/rstudio-stable:3.3.2
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+## Configure default locale, see https://github.com/rocker-org/rocker/issues/19
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+  && locale-gen en_US.utf8 \
+  && /usr/sbin/update-locale LANG=en_US.UTF-8
+
+# Set the CRAN mirror
+RUN echo "local({\n  r <- getOption(\"repos\")\n\
+  r[\"CRAN\"] <- \
+  \"https://cran.r-project.org\"\n\
+  options(repos = r)\n\
+  })\n" >> /etc/R/Rprofile.site
+
+RUN apt-get update && apt-get install -y libssl-dev libpng-dev vim libxml2 libxml2-dev libudunits2-dev libfftw3-dev libtiff5-dev imagemagick libfreetype6-dev
+
+RUN echo 'setwd("/mnt/src")' >> /etc/R/Rprofile.site
+
+COPY install_core_packages.R /code/install_core_packages.R
+RUN R -f /code/install_core_packages.R

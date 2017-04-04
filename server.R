@@ -36,18 +36,21 @@ shinyServer(function(input, output) {
     )
   })
   
+  
 output$myImage <- renderImage({
     
     outfile <- tempfile(fileext='.png')
     validate_input(input[['img_url']])
     validate_input(input[['name']])
-    validate_input(input[['bg_color']])
+    validate_input(input[['font_size']])
     myurl <- paste0(input[['img_url']])
     z <- tempfile(fileext='.png')
-    download.file(myurl,z,mode="wb")
+    download.file(myurl, z, mode="wb")
+    
+    png()
 
     sticker(z, package = input$name,
-            p_size = as.numeric(input$font_size), s_x = 1, s_y = 0.75, s_width = .8, s_height = .45,
+            p_size = as.numeric(input$font_size), s_x = 1, s_y = 0.75, s_width = .5, p_y = 1.5,
             filename = outfile, p_color = input$title_color,
             h_fill = input$bg_color, h_color = input$frame_color)
     
